@@ -3,7 +3,10 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/", function(req,res){
+app.get("/", async (req,res)=>{
+    const DB = require('./infra/postgresConnect');
+    let produtos = await DB.query('select * from produtos').catch(err=>err);
+    console.log(produtos)
    return  res.send('Servidor ok');
 }); 
 
